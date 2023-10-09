@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_practice1/api_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'api_service.dart';
 import 'model/demo_model_user.dart';
 
-// final greetingProvider = Provider<String>((ref) => 'Hello');
-// final counterProvider = StateProvider<int>((ref) => 0);
-// final countProvider =
-//     StateNotifierProvider<CountDemo, int>((ref) => CountDemo());
+final greetingProvider = Provider<String>((ref) => 'Hello');
+final counterProvider = StateProvider<int>((ref) => 0);
 final apiProvider = Provider<ApiService>((ref) => ApiService());
 final userDataProvider = FutureProvider<List<UserModel>>(
   (ref) {
@@ -24,74 +22,75 @@ void main() {
 }
 
 class DemoView extends ConsumerWidget {
-  const DemoView({super.key});
+  const DemoView({Key? key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final greet = ref.watch(greetingProvider);
     final userData = ref.watch(userDataProvider);
-    // final count = ref.watch(counterProvider);
-    // final value = ref.watch(greetingProvider);
-    // final counter = ref.watch(countProvider);
-
-    // ref.listen(counterProvider, ((previous, next) {
-    //   if (next == 10) {
-    //     ScaffoldMessenger.of(context)
-    //         .showSnackBar(SnackBar(content: Text('The value is $next')));
-    //   }
-    // }));
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(title: const Text('User Data')),
         body: userData.when(
-            data: (data) {
-              return ListView.builder(
-                itemBuilder: ((context, index) {
-                  return ListTile(
-                    title: Text(
-                        "${data[index].firstname} ${data[index].lastname}"),
-                    subtitle: Text(data[index].email),
-                    leading: CircleAvatar(
-                      child: Image.network(data[index].avatar),
-                    ),
-                  );
-                }),
-                itemCount: data.length,
-              );
-            },
-            error: ((error, stackTree) => Text(error.toString())),
-            loading: (() {
-              return const Center(child: CircularProgressIndicator());
-            })),
+          data: (data) {
+            return ListView.builder(
+              itemBuilder: (context, index) {
+                return Container(
+                  padding: const EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.only(
+                    right: 70,
+                    left: 70,
+                    top: 16,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(50.0),
+                        child: Image.network(
+                          data[index].avatar,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Text(
+                        data[index].firstname,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 24),
+                      ),
+                      Text(
+                        'First name : ${data[index].firstname}',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Text(
+                        'Last name : ${data[index].lastname}',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Text(
+                        data[index].email,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.grey),
+                      )
+                    ],
+                  ),
+                );
+              },
+              itemCount: data.length,
+            );
+          },
+          error: (error, stackTrace) => Text(error.toString()),
+          loading: () => const Center(child: CircularProgressIndicator()),
+        ),
       ),
     );
   }
 }
-
-// class Main extends ConsumerStatefulWidget {
-//   const Main({Key? key}) : super(key: key);
-//
-//   @override
-//   _MainState createState() => _MainState();
-// }
-
-// class _MainState extends ConsumerState<Main> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     final greeting = ref.read(greetingProvider);
-//     log(greeting);
-//   }
-
-// @override
-// Widget build(BuildContext context) {
-//   final greeting = ref.watch(greetingProvider);
-//   return MaterialApp(
-//     debugShowCheckedModeBanner: false,
-//     home: Scaffold(
-//         appBar: AppBar(title: const Text('Stateful Widget')),
-//         body: Center(child: Text(greeting))),
-//   );
-// }
-// }
