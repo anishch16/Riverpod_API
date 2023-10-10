@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../model/demo_model_user.dart';
 import '../services/api_service.dart';
+import '../widgets/language_button.dart';
 import '../widgets/theme_button.dart';
 
 final apiProvider = Provider<ApiService>((ref) => ApiService());
@@ -26,7 +27,7 @@ class ProfileView extends ConsumerWidget {
           title: const Text(
             'Profile View',
           ),
-          actions: const [ThemeButton()]),
+          actions: const [LanguageButton(), ThemeButton()]),
       body: userData.when(
         data: (data) {
           return Center(
