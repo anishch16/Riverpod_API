@@ -1,14 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:riverpod_practice1/views/profile_view.dart';
 
 import '../providers/providers.dart';
 import '../widgets/language_button.dart';
 import '../widgets/theme_button.dart';
 
 class DemoView extends ConsumerWidget {
-  const DemoView({Key? key});
+  const DemoView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -69,11 +69,16 @@ class DemoView extends ConsumerWidget {
                     ),
                     TextButton(
                         onPressed: () {
-                          GoRouter.of(context).go("/profile");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ProfileView(user: data[index])),
+                          );
                         },
                         child: Text(
                           tr('See More'),
-                          style: TextStyle(color: Colors.blue),
+                          style: const TextStyle(color: Colors.blue),
                         ))
                   ],
                 ),

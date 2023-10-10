@@ -14,6 +14,11 @@ final userDataProvider = FutureProvider<List<UserModel>>(
     return ref.read(apiProvider).getUser();
   },
 );
+
 final themeProvider = StateProvider<ThemeMode>((ref) {
   return ThemeMode.dark;
+});
+
+final localeProvider = StateProvider<Locale>((ref) {
+  return const Locale('en');
 });

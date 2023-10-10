@@ -1,21 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:riverpod_practice1/model/demo_model_user.dart';
+import 'package:riverpod_practice1/views/demo_view.dart';
 
-import '../model/demo_model_user.dart';
-import '../services/api_service.dart';
-
-final apiProvider = Provider<ApiService>((ref) => ApiService());
-
-final userDataProvider = FutureProvider<List<UserModel>>(
-  (ref) {
-    return ref.read(apiProvider).getUser();
-  },
-);
+import '../providers/providers.dart';
 
 class ProfileView extends ConsumerWidget {
-  const ProfileView({super.key});
+  const ProfileView({
+    super.key,
+    required this.user,
+  });
+
+  final UserModel user;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,7 +31,7 @@ class ProfileView extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.network(
-                  data[0].avatar,
+                  user.avatar,
                   fit: BoxFit.cover,
                 ),
                 const SizedBox(height: 20),
@@ -44,11 +41,17 @@ class ProfileView extends ConsumerWidget {
                       fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 TextButton(
-                    onPressed: () {
-                      GoRouter.of(context).go("/");
-                    },
-                    child: Text(tr('Go back to main page'),
-                        style: const TextStyle(color: Colors.blue)))
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const DemoView()),
+                    );
+                  },
+                  child: Text(
+                    tr('Go back to main page'),
+                    style: const TextStyle(color: Colors.blue),
+                  ),
+                ),
               ],
             ),
           );
