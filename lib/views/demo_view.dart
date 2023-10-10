@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../providers/providers.dart';
+import '../widgets/language_button.dart';
 import '../widgets/theme_button.dart';
 
 class DemoView extends ConsumerWidget {
@@ -17,7 +19,7 @@ class DemoView extends ConsumerWidget {
           title: const Text(
             'All Users Profile',
           ),
-          actions: const [ThemeButton()]),
+          actions: const [LanguageButton(), ThemeButton()]),
       body: userData.when(
         data: (data) {
           return ListView.builder(
@@ -49,7 +51,7 @@ class DemoView extends ConsumerWidget {
                           fontWeight: FontWeight.bold, fontSize: 24),
                     ),
                     Text(
-                      'First name : ${data[index].firstname}',
+                      '${tr("First name : ")}${data[index].firstname}',
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 20),
                     ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -38,9 +39,10 @@ class ProfileView extends ConsumerWidget {
                   fit: BoxFit.cover,
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'Your Profile Seems Good',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                Text(
+                  tr('Your Profile Seems Good'),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 TextButton(
                     onPressed: () {
