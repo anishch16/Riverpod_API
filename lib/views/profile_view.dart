@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../model/demo_model_user.dart';
 import '../services/api_service.dart';
+import '../widgets/theme_button.dart';
 
 final apiProvider = Provider<ApiService>((ref) => ApiService());
 
@@ -21,6 +22,11 @@ class ProfileView extends ConsumerWidget {
     final userData = ref.watch(userDataProvider);
 
     return Scaffold(
+      appBar: AppBar(
+          title: const Text(
+            'Profile View',
+          ),
+          actions: const [ThemeButton()]),
       body: userData.when(
         data: (data) {
           return Center(
@@ -34,10 +40,7 @@ class ProfileView extends ConsumerWidget {
                 const SizedBox(height: 20),
                 const Text(
                   'Your Profile Seems Good',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.red),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 TextButton(
                     onPressed: () {
