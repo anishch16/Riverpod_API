@@ -16,8 +16,8 @@ class DemoView extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-            'All Users Profile',
+          title: Text(
+            tr('All Users Profile'),
           ),
           actions: const [LanguageButton(), ThemeButton()]),
       body: userData.when(
@@ -56,7 +56,7 @@ class DemoView extends ConsumerWidget {
                           fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     Text(
-                      'Last name : ${data[index].lastname}',
+                      '${tr("Last name : ")}${data[index].lastname}',
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 20),
                     ),
@@ -71,8 +71,8 @@ class DemoView extends ConsumerWidget {
                         onPressed: () {
                           GoRouter.of(context).go("/profile");
                         },
-                        child: const Text(
-                          'See More',
+                        child: Text(
+                          tr('See More'),
                           style: TextStyle(color: Colors.blue),
                         ))
                   ],
