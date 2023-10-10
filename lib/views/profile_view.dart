@@ -1,10 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../model/demo_model_user.dart';
 import '../services/api_service.dart';
-import '../widgets/language_button.dart';
 import '../widgets/theme_button.dart';
 
 final apiProvider = Provider<ApiService>((ref) => ApiService());
@@ -27,7 +27,7 @@ class ProfileView extends ConsumerWidget {
           title: const Text(
             'Profile View',
           ),
-          actions: const [LanguageButton(), ThemeButton()]),
+          actions: const [ThemeButton()]),
       body: userData.when(
         data: (data) {
           return Center(
@@ -39,9 +39,10 @@ class ProfileView extends ConsumerWidget {
                   fit: BoxFit.cover,
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'Your Profile Seems Good',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                Text(
+                  tr('Your Profile Seems Good'),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 TextButton(
                     onPressed: () {
