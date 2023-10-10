@@ -20,7 +20,7 @@ class LanguageButton extends ConsumerWidget {
       },
       child: context.locale.languageCode == 'en'
           ? const Text('Nepali')
-          : const Text('English'),
+          : const Text('अंग्रेजी'),
     );
   }
 }

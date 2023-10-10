@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 
 import '../model/demo_model_user.dart';
 import '../services/api_service.dart';
-import '../widgets/theme_button.dart';
 
 final apiProvider = Provider<ApiService>((ref) => ApiService());
 
@@ -24,10 +23,10 @@ class ProfileView extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-            'Profile View',
-          ),
-          actions: const [ThemeButton()]),
+        title: Text(
+          tr('Profile View'),
+        ),
+      ),
       body: userData.when(
         data: (data) {
           return Center(
@@ -48,8 +47,8 @@ class ProfileView extends ConsumerWidget {
                     onPressed: () {
                       GoRouter.of(context).go("/");
                     },
-                    child: const Text('Go back to main page',
-                        style: TextStyle(color: Colors.blue)))
+                    child: Text(tr('Go back to main page'),
+                        style: const TextStyle(color: Colors.blue)))
               ],
             ),
           );
