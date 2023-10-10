@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 
-import 'model/demo_model_user.dart';
+import '../model/demo_model_user.dart';
 
 class ApiService {
   String endpoint = 'https://reqres.in/api/users?page=1';
