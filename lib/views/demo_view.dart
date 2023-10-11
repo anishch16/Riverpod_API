@@ -16,6 +16,7 @@ class DemoView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userData = ref.watch(userDataProvider);
     final designer = ref.watch(nameProvider);
+    final counter = ref.watch(counterNotifierProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -106,7 +107,33 @@ class DemoView extends ConsumerWidget {
                 decoration: BoxDecoration(
                     color: Colors.blue.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(10.0)),
-                child: Text(designer),
+                child: Row(
+                  children: [
+                    const SizedBox(width: 16),
+                    Text(counter.toString()),
+                    TextButton(
+                        onPressed: () {
+                          ref
+                              .read(counterNotifierProvider.notifier)
+                              .increment();
+                        },
+                        child: const Text(
+                          '+',
+                          style: TextStyle(fontSize: 20),
+                        )),
+                    TextButton(
+                        onPressed: () {
+                          ref
+                              .read(counterNotifierProvider.notifier)
+                              .decrement();
+                        },
+                        child: const Text(
+                          '-',
+                          style: TextStyle(fontSize: 20),
+                        )),
+                    Text(designer),
+                  ],
+                ),
               ),
               const SizedBox(height: 8.0),
             ],

@@ -1,7 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CountDemo extends StateNotifier<int> {
-  CountDemo() : super(0);
+class CounterNotifier extends Notifier<int> {
+  @override
+  int build() {
+    return 0;
+  }
 
   void increment() {
     state++;
