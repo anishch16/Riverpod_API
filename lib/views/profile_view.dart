@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,6 +7,7 @@ import 'package:riverpod_practice1/views/demo_view.dart';
 
 import '../providers/providers.dart';
 
+@RoutePage()
 class ProfileView extends ConsumerWidget {
   const ProfileView({
     super.key,
@@ -42,7 +44,7 @@ class ProfileView extends ConsumerWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pop(
                       context,
                       MaterialPageRoute(builder: (context) => const DemoView()),
                     );

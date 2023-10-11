@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_practice1/providers/providers.dart';
-import 'package:riverpod_practice1/views/demo_view.dart';
+import 'package:riverpod_practice1/routes/app_routers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +26,9 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeProvider);
-    return MaterialApp(
+    AppRouter appRouter = AppRouter();
+    return MaterialApp.router(
+      routerConfig: appRouter.config(),
       debugShowCheckedModeBanner: false,
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
@@ -40,7 +42,6 @@ class MyApp extends ConsumerWidget {
         colorScheme: const ColorScheme.light(),
       ),
       themeMode: themeMode,
-      home: const DemoView(),
     );
   }
 }
