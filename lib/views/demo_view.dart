@@ -15,6 +15,7 @@ class DemoView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userData = ref.watch(userDataProvider);
+    final designer = ref.watch(nameProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -31,69 +32,84 @@ class DemoView extends ConsumerWidget {
           ]),
       body: userData.when(
         data: (data) {
-          return ListView.builder(
-            itemBuilder: (context, index) {
-              return Container(
-                padding: const EdgeInsets.all(8.0),
-                margin: const EdgeInsets.only(
-                  right: 70,
-                  left: 70,
-                  top: 16,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(50.0),
-                      child: Image.network(
-                        data[index].avatar,
-                        fit: BoxFit.cover,
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: const EdgeInsets.all(8.0),
+                      margin: const EdgeInsets.only(
+                        right: 70,
+                        left: 70,
+                        top: 16,
                       ),
-                    ),
-                    Text(
-                      data[index].firstname,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 24),
-                    ),
-                    Text(
-                      '${tr("First name : ")}${data[index].firstname}',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    Text(
-                      '${tr("Last name : ")}${data[index].lastname}',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    Text(
-                      data[index].email,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.grey),
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ProfileView(user: data[index])),
-                          );
-                        },
-                        child: Text(
-                          tr('See More'),
-                          style: const TextStyle(color: Colors.blue),
-                        ))
-                  ],
+                      decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(50.0),
+                            child: Image.network(
+                              data[index].avatar,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text(
+                            data[index].firstname,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 24),
+                          ),
+                          Text(
+                            '${tr("First name : ")}${data[index].firstname}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          Text(
+                            '${tr("Last name : ")}${data[index].lastname}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          Text(
+                            data[index].email,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.grey),
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProfileView(user: data[index])),
+                                );
+                              },
+                              child: Text(
+                                tr('See More'),
+                                style: const TextStyle(color: Colors.blue),
+                              ))
+                        ],
+                      ),
+                    );
+                  },
+                  itemCount: data.length,
                 ),
-              );
-            },
-            itemCount: data.length,
+              ),
+              const SizedBox(height: 8.0),
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                    color: Colors.blue.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(10.0)),
+                child: Text(designer),
+              ),
+              const SizedBox(height: 8.0),
+            ],
           );
         },
         error: (error, stackTrace) => Text(error.toString()),
