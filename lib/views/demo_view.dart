@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +8,7 @@ import '../providers/providers.dart';
 import '../widgets/language_button.dart';
 import '../widgets/theme_button.dart';
 
+@RoutePage()
 class DemoView extends ConsumerWidget {
   const DemoView({super.key});
 
@@ -19,7 +21,14 @@ class DemoView extends ConsumerWidget {
           title: Text(
             tr('All Users Profile'),
           ),
-          actions: const [LanguageButton(), ThemeButton()]),
+          actions: const [
+            Row(
+              children: [
+                LanguageButton(),
+                ThemeButton(),
+              ],
+            ),
+          ]),
       body: userData.when(
         data: (data) {
           return ListView.builder(
